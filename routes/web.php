@@ -1,18 +1,12 @@
 <?php
 
+use App\Http\Controllers\Sample\ExampleController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(ExampleController::class)->group(function() {
+    Route::get('/', 'getAllData')->name('sample.getAll');
+    Route::post('/', 'createData')->name('sample.createData');
+    Route::get('/{example}', 'getDataById')->name('sample.getById');
+    Route::patch('/{example}', 'updateData')->name('sample.updateData');
+    Route::delete('/{example}', 'deleteData')->name('sample.deleteData');
 });
