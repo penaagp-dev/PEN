@@ -41,9 +41,15 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="calendar.html">
+                    <a href="/galery">
                         <i class="fa fa-folder"></i>
                         <p>Galery</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('readData.generation') }}">
+                      <i class="fa-solid fa-users-line"></i>
+                        <p>Generation</p>
                     </a>
                 </li>
             </ul>
