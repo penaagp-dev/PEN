@@ -2,9 +2,8 @@
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         <a href="#!" class="b-brand">
-            <!-- ========   change your logo hear   ============ -->
-            <img src="assets/images/logo.png" alt="" class="logo">
-            <img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
+            <img src="{{asset('assets/images/logo.png')}}" alt="" class="logo">
+            <img src="{{asset('assets/images/logo-icon.png')}}" alt="" class="logo-thumb">
         </a>
         <a href="#!" class="mob-toggler">
             <i class="feather icon-more-vertical"></i>
@@ -107,12 +106,10 @@
                             </a>
                         </div>
                         <ul class="pro-body">
-                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i>
-                                    Profile</a></li>
-                            <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My
-                                    Messages</a></li>
-                            <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i>
-                                    Lock Screen</a></li>
+                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-pie-chart"></i>
+                                    Pengaturan Akun</a></li>
+                            <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-log-out"></i> My
+                                    Logout</a></li>
                         </ul>
                     </div>
                 </div>
