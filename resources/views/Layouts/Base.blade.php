@@ -9,6 +9,7 @@
 	@include('Layouts.Styles')
 </head>
 <body>
+	@include('sweetalert::alert')
 	<div class="wrapper">
 		<div class="main-header">
 			<div class="logo-header" data-background-color="blue">

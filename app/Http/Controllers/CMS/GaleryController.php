@@ -7,6 +7,7 @@ use App\Models\GaleryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GaleryController extends Controller
 {
@@ -30,6 +31,7 @@ class GaleryController extends Controller
         );
         
         GaleryModel::create($data);
-        return redirect()->back()->with('status', 'Data berhasil di tambahkan');
+        Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
+        return back();
     }
 }

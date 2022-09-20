@@ -6,14 +6,6 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title"><b>Data Galery</b></h4>
-                    @if (session('status'))
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                        {{ session('status') }}
-                    </div>
-                    @endif
                     <button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#modaltambah">
                        + Tambah Data
                       </button>
@@ -24,8 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Path</th>
+                                    <th>Name</th>
                                     <th>Description</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -33,8 +24,7 @@
                             <tfoot>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Path</th>
+                                    <th>Name</th>
                                     <th>Description</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -47,9 +37,6 @@
                                     <tr>
                                         <td>{{$no++}}</td>
                                         <td>{{$d['name']}}</td>
-                                        <td>
-                                            <img src="{{ Storage::url('public/atlantis/image/').$d->path }}" style="width: 150px">
-                                        </td>
                                         <td>{{$d['description']}}</td>
                                         <td>
                                             <a href="" class="btn-sm btn btn-outline-primary"><i class="fa fa-edit"></i></a>
