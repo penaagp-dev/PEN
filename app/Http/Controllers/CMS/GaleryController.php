@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
 class GaleryController extends Controller
 {
     public function index()
@@ -33,5 +34,7 @@ class GaleryController extends Controller
         GaleryModel::create($data);
         Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
         return back();
+
+        
     }
 }
