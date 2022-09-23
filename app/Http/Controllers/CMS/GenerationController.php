@@ -5,52 +5,45 @@ namespace App\Http\Controllers\CMS;
 use Illuminate\Http\Request;
 use App\Models\GenerationModel;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\GenerationRequest;
+use App\Interfaces\GenerationRepoInterfaces;
+use Illuminate\Support\Carbon;
 
 class GenerationController extends Controller
 {
-    public function readData()
+    private GenerationRepoInterfaces $generationRepo;
+
+    public function __construct(GenerationRepoInterfaces $generationRepo)
     {
-        $data = GenerationModel::all();
-        return view('CMS.Generation')->with('data', $data);
+        $this->generationRepo = $generationRepo;
     }
 
-    public function store(Request $request)
+    public function getAllData(): JsonResponse
     {
-        $validation = Validator::make(
-            $request->all(),
-            [
-                'name' => 'required|min:3',
-                'years' => 'required',
-                'graduated' => 'required',
-            ],
-            [
-                'required' => 'Data Tidak Boleh Kosong',
-
-            ]
-        );
-
-        if ($validation->fails()) {
-            $msg = $validation->errors()->first();
-            Alert::error('Gagal', $msg);
-            return redirect()
-                ->back();
-        }
-        $data = GenerationModel::create([
-            'name' => $request->name,
-            'years' => $request->years,
-            'graduated' => $request->graduated,
-            
-        ]);
-
-        if ($data) {
-            Alert::success('Behasil', 'Data Berhasil Di Tambahkan');
-            return back();
-        } else {
-            Alert::error('Gagal', 'Mohon periksa kembali inputan anda');
-            return redirect()->back();
-        }
+        $generation = $this->generationRepo->getAllGeneration();
+        return response()->json($generation ,$generation['code']);
     }
 
+    public function getDataById($generationId): JsonResponse
+    {
+        $generation = $this->generationRepo->getGenerationById($generationId);
+        return response()->json($generation, $generation['code']);
+    }
+
+    public function upsertData(GenerationRequest $request)
+    {
+        $generationId = $request->id | null;
+        $request['updated_at'] = Carbon::now();
+
+        $generation = $this->generationRepo->upsertGeneration($generationId, $request->all());
+        return response()->json($generation, $generation['code']);
+    }
+
+    public function deleteData($sampleId): JsonResponse
+    {
+        $generation = $this->generationRepo->deleteGeneration($sampleId);
+        return response()->json($generation, $generation['code']);
+    }
 }

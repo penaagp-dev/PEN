@@ -13,13 +13,16 @@ Route::prefix('example')->controller(ExampleController::class)->group(function (
     Route::delete('/{example}', 'deleteData');
 });
 
+Route::prefix('generation')->controller(GenerationController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::post('/', 'upsertData');
+    Route::get('/{generation}', 'getDataById');
+    Route::delete('/{generation}', 'deleteData');
+});
+
 Route::get('/', [DashboardController::class, 'index']);
 Route::get('/galery', [GaleryController::class, 'index']);
 Route::post('create', [GaleryController::class, 'store'])->name('galery.store');
 
 
-Route::prefix('generation')->controller(GenerationController::class)->group(function () {
-    Route::get('/', 'readData')->name('readData.generation');
-    Route::post('/', 'store')->name('createData.generation');
-});
 
