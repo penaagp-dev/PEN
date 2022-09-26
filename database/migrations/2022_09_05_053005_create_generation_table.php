@@ -11,7 +11,7 @@ class CreateGenerationTable extends Migration
         Schema::create('generation', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->year('years');
+            $table->text('years');
             $table->date('graduated');
             $table->timestamps();
         });
