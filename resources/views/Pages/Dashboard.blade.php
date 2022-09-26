@@ -14,3 +14,7 @@
         </ul>
     </div>
 @endsection
+@section('main-content')
+@endsection
+@section('js-content')
+@endsection
