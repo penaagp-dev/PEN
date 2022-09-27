@@ -25,6 +25,10 @@
                     <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i
                     class="feather icon-file-text"></i></span><span class="pcoded-mtext">Generasi</span></a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url ('general-information') }}" class="nav-link "><span class="pcoded-micon"><i
+                    class="feather icon-file-text"></i></span><span class="pcoded-mtext">General Information</span></a>
+                </li>
             </ul>
         </div>
     </div>
