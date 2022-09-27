@@ -18,6 +18,9 @@
 @section('main-content')
     <div class="col-xl-12">
         <div class="card">
+            <div class="card-header">
+              <button class="btn btn-primary rounded" id="btn-add">Tambah Data</button>
+            </div>
             <div class="card-body">
                 <ul class="nav nav-tabs mb-3 row" id="myTab" role="tablist">
                     <li class="nav-item col-sm-2">
@@ -62,22 +65,132 @@
         </div>
     </div>
 @endsection
+@section('form')
+<div class="row py-4">
+  <div class="col-md-6">
+    <div class="form-group fill">
+        <label >Name</label>
+        <input type="hidden" name="id" id="id">
+        <input id="name" name="name" type="text" class="form-control" placeholder="input here..." autocomplete="off">
+        <small id="name-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group fill">
+        <label >Years</label>
+        <input id="years" name="years" type="text" class="form-control">
+        <small id="years-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+  <div class="col-md-12 mt-3">
+    <div class="form-group fill">
+        <label>Graduated</label>
+        <input id="graduated" name="graduated" type="date" class="form-control">
+        <small id="graduated-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+</div>
+@endsection
 @section('js-content')
     <script>
-      let url = `{{ config('app.url') }}/v1/generation`
+    let url = `{{ config('app.url') }}/v1/generation`
+      const successAllert = () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Good Job',
+          text: 'Data has been saved!'
+        }).then((res) => {
+          if (res.isConfirmed) {
+            window.location.reload()
+          }
+        })
+      }
+
+      const dangerAlert = () => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error!',
+          text: 'Server sedang bermasalah'
+        }).then((res) => {
+          if (res.isConfirmed) {
+            window.location.reload()
+          }
+        })
+      }
+     
 
       $(document).ready(() => {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.get(url, (res) => {
-          const table = $('#table-generation').DataTable()
+          const table = $('#table-generation').DataTable({
+            "bAutoWidth": false
+          })
           $.each(res.data, (i, val) => {
             table.row.add([
-              i+1, val.name, val.years, val.graduated, moment(val.created_at).format("DD MMMM YYYY"),
-              `<button class="btn btn-sm btn-outline-primary rounded"><i class="fa-regular fa-pen-to-square"></i></button>
-              <button class="btn btn-sm btn-outline-secondary rounded ml-1"><i class="fa-regular fa-trash-can"></i></button>`
+              i+1 + '.', val.name, val.years, val.graduated, moment(val.created_at).format("DD MMMM YYYY"),
+              `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
             ])
             .draw()
           })
         })
       })
+       const proccessBtn = () => {
+        $('#btn-send').prop('disabled', true)
+        $('#btn-send').html(`Loading
+          <div class="spinner-border spinner-border-sm ml-2" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        `)
+      }
+
+      const disableSpinner = () => {
+        $('#btn-send').prop('disabled', false)
+        $('#btn-send').html('Kirim')
+      }
+
+      const fieldList = ['id', 'name', 'years', 'graduated']
+
+      const clear = () => {
+        $.each(fieldList, (i, val) => {
+          $(`#${val}`).val('')
+        })
+      }
+
+      $(document).on('click', '#btn-add', function() {
+        clear()
+        $('#modalUpdate').modal('show')
+      })
+
+      $(document).on('click', '#btn-send', () => {
+        let dataGeneration = $('#form-upsert').serialize()
+        proccessBtn()
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: dataGeneration,
+          success: (result) => {
+            $('#modalUpdate').modal('hide')
+            successAllert()
+          },
+          error: (err) => {
+            let myErr = err.responseJSON
+            if (myErr.errors.length > 0) {
+              $.each(myErr.errors.data, (i, value) => {
+                $(`#${i}-alert`).html(value)
+              })
+              disableSpinner()
+            } else {
+              dangerAlert()
+            }
+          }
+        })
+      })
+
     </script>
 @endsection
