@@ -11,11 +11,11 @@ class CreateGeneralInformationTable extends Migration
         Schema::create('general_information', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->date('since');
+            $table->string('since');
             $table->string('parent');
             $table->string('phone');
             $table->string('email');
-            $table->text('address');
+            $table->string('address');
             $table->timestamps();
         });
     }
