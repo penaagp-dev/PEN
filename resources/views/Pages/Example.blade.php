@@ -71,41 +71,14 @@
 @section('js-content')
     <script>
       let url = `{{ config('app.url') }}/v1/example`
-      const successAllert = () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Good Job',
-          text: 'Data has been saved!'
-        }).then((res) => {
-          if (res.isConfirmed) {
-            window.location.reload()
-          }
-        })
-      }
 
-      const dangerAlert = () => {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Error!',
-          text: 'Server sedang bermasalah'
-        }).then((res) => {
-          if (res.isConfirmed) {
-            window.location.reload()
-          }
-        })
-      }
-
-      $(document).ready(() => {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.get(url, (res) => {
-          const table = $('#table-example').DataTable({
+      const table = $('#table-example').DataTable({
             "bAutoWidth": false
-          })
+      })
+
+      const getSample = () => {
+        table.clear()
+        $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
               i+1 + '.', val.sample, val.is_text, val.date_sample, moment(val.created_at).format("DD MMMM YYYY"),
@@ -115,7 +88,37 @@
             .draw()
           })
         })
+      }
+
+      $(document).ready(() => {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        getSample()
       })
+
+      const successAllert = () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Good Job',
+          text: 'Data has been saved!'
+        }).then((res) => {
+          if (res.isConfirmed) {
+            getSample()
+            clear()
+          }
+        })
+      }
+
+      const dangerAlert = () => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error!',
+          text: 'Server sedang bermasalah'
+        })
+      }
 
       const proccessBtn = () => {
         $('#btn-send').prop('disabled', true)
@@ -136,6 +139,7 @@
       const clear = () => {
         $.each(fieldList, (i, val) => {
           $(`#${val}`).val('')
+          disableSpinner()
         })
       }
 
@@ -203,7 +207,7 @@
                   'success'
                 ).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.reload()
+                    getSample()
                   }
                 })
               },
