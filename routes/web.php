@@ -13,6 +13,10 @@ Route::get('/example', function () {
     return view('Pages.Example');
 });
 
+Route::get('/generation', function () {
+    return view('Pages.Generation');
+});
+
 Route::prefix('v1/example')->controller(ExampleController::class)->group(function () {
     Route::get('/', 'getAllData');
     Route::post('/', 'upsertData');

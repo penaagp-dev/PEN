@@ -40,9 +40,9 @@ class GenerationController extends Controller
         return response()->json($generation, $generation['code']);
     }
 
-    public function deleteData($sampleId): JsonResponse
+    public function deleteData($generationId): JsonResponse
     {
-        $generation = $this->generationRepo->deleteGeneration($sampleId);
+        $generation = $this->generationRepo->deleteGeneration($generationId);
         return response()->json($generation, $generation['code']);
     }
 }
