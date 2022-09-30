@@ -23,7 +23,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive mt-4">
-                <table class="table table-striped" id="table-example">
+                <table class="table table-striped" id="table-general">
                     <thead>
                         <tr>
                             <th style="width: 5%">#</th>
@@ -93,7 +93,7 @@
 </div>
 @endsection
 @section('js-content')
-    <script>
+    {{-- <script>
       let url = `{{ config('app.url') }}/v1/general-information`
       const successAllert = () => {
         Swal.fire({
@@ -127,7 +127,7 @@
         });
 
         $.get(url, (res) => {
-          const table = $('#table-example').DataTable({
+          const table = $('#table-general').DataTable({
             "bAutoWidth": false
           })
           $.each(res.data, (i, val) => {
@@ -194,5 +194,111 @@
       })
 
       
+    </script> --}}
+    <script>
+      let url = `{{ config('app.url') }}/v1/general-information`
+
+      const table = $('#table-general').DataTable({
+            "bAutoWidth": false
+      })
+
+      const getGeneral = () => {
+        table.clear()
+        $.get(url, (res) => {
+          $.each(res.data, (i, val) => {
+            table.row.add([
+              i+1 + '.', val.name, val.since, val.parent, val.phone, val.email, val.address, moment(val.created_at).format("DD MMMM YYYY"),
+              `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
+            ])
+            .draw()
+          })
+        })
+      }
+
+      $(document).ready(() => {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        getGeneral()
+      })
+
+      const successAllert = () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Good Job',
+          text: 'Data has been saved!'
+        }).then((res) => {
+          if (res.isConfirmed) {
+            getGeneral()
+            clear()
+          }
+        })
+      }
+
+      const dangerAlert = () => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error!',
+          text: 'Server sedang bermasalah'
+        })
+      }
+
+      const proccessBtn = () => {
+        $('#btn-send').prop('disabled', true)
+        $('#btn-send').html(`Loading
+          <div class="spinner-border spinner-border-sm ml-2" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        `)
+      }
+
+      const disableSpinner = () => {
+        $('#btn-send').prop('disabled', false)
+        $('#btn-send').html('Kirim')
+      }
+
+      const fieldList = ['id', 'name', 'since', 'parent', 'phone', 'email', 'address']
+
+      const clear = () => {
+        $.each(fieldList, (i, val) => {
+          $(`#${val}`).val('')
+          disableSpinner()
+        })
+      }
+
+      $(document).on('click', '#btn-add', function() {
+        clear()
+        $('#modalUpdate').modal('show')
+      })
+
+      $(document).on('click', '#btn-send', () => {
+        let dataGeneral = $('#form-upsert').serialize()
+        proccessBtn()
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: dataGeneral,
+          success: (result) => {
+            $('#modalUpdate').modal('hide')
+            successAllert()
+          },
+          error: (err) => {
+            let myErr = err.responseJSON
+            if (myErr.errors.length > 0) {
+              $.each(myErr.errors.data, (i, value) => {
+                $(`#${i}-alert`).html(value)
+              })
+              disableSpinner()
+            } else {
+              dangerAlert()
+            }
+          }
+        })
+      })
+
+     
     </script>
 @endsection
