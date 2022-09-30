@@ -94,7 +94,7 @@
 @endsection
 @section('js-content')
     <script>
-      let url = `{{ config('app.url') }}/v1/general-information`
+      let url = `{{ config('app.url') }}/v1/GeneralInformation`
 
       const table = $('#table-general').DataTable({
             "bAutoWidth": false
