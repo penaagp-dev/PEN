@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CMS\GenerationController;
 use App\Http\Controllers\Sample\ExampleController;
 use App\Http\Controllers\CMS\GeneralInformationController;
+use App\Http\Controllers\CMS\SocialMediaController;
 
 Route::get('/', function () {
     return view('Pages.Dashboard');
@@ -15,6 +16,10 @@ Route::get('/example', function () {
 
 Route::get('/generation', function () {
     return view('Pages.Generation');
+});
+
+Route::get('/socialmedia', function () {
+    return view('Pages.SocialMedia');
 });
 
 Route::prefix('v1/example')->controller(ExampleController::class)->group(function () {
@@ -35,4 +40,10 @@ Route::prefix('v1/generation')->controller(GenerationController::class)->group(f
     Route::post('/', 'upsertData');
     Route::get('/{generation}', 'getDataById');
     Route::delete('/{generation}', 'deleteData');
+});
+Route::prefix('v1/socialmedia')->controller(SocialMediaController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::post('/', 'upsertData');
+    Route::get('/{socialmedia}', 'getDataById');
+    Route::delete('/{socialmedia}', 'deleteData');
 });
