@@ -24,6 +24,10 @@
                 <li class="nav-item">
                     <a href="/generation" class="nav-link "><span class="pcoded-micon"><i class="fa-sharp fa-solid fa-user-tie"></i></span><span class="pcoded-mtext">Generasi</span></a>
                 </li>
+                <li class="nav-item">
+                    <a href="/socialmedia" class="nav-link "><span class="pcoded-micon"><i
+                    class="feather icon-file-text"></i></span><span class="pcoded-mtext">Social Media</span></a>
+                </li>
             </ul>
         </div>
     </div>
