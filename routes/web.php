@@ -28,7 +28,7 @@ Route::prefix('v1/example')->controller(ExampleController::class)->group(functio
     Route::delete('/{example}', 'deleteData');
 });
 
-Route::prefix('v1/general-information')->controller(GeneralInformationController::class)->group(function () {
+Route::prefix('v1/GeneralInformation')->controller(GeneralInformationController::class)->group(function () {
     Route::get('/', 'getAllData');
     Route::post('/', 'upsertData');
     Route::get('/{general_information}', 'getDataById');
