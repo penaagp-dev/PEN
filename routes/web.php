@@ -14,6 +14,10 @@ Route::get('/example', function () {
     return view('Pages.Example');
 });
 
+Route::get('/general-information', function () {
+    return view('Pages.GeneralInformation');
+});
+
 Route::get('/generation', function () {
     return view('Pages.Generation');
 });

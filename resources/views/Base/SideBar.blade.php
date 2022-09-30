@@ -28,6 +28,10 @@
                     <a href="/socialmedia" class="nav-link "><span class="pcoded-micon"><i
                     class="feather icon-file-text"></i></span><span class="pcoded-mtext">Social Media</span></a>
                 </li>
+                <li>
+                <a href="{{ url ('general-information') }}" class="nav-link "><span class="pcoded-micon"><i
+                    class="feather icon-file-text"></i></span><span class="pcoded-mtext">General Information</span></a>
+                </li>
             </ul>
         </div>
     </div>

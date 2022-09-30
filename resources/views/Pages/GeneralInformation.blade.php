@@ -1,17 +1,17 @@
 @extends('Base.Skelton')
 @section('tittle')
-    Generation page
+    General Information page
 @endsection
 @section('head-content')
     <div class="col-md-12">
         <div class="page-header-title">
-            <h5 class="m-b-10">Generation</h5>
+            <h5 class="m-b-10">General Information</h5>
         </div>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
             </li>
             <li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#!">Generation</a></li>
+            <li class="breadcrumb-item"><a href="#!">General Information</a></li>
         </ul>
     </div>
 @endsection
@@ -23,14 +23,17 @@
             </div>
             <div class="card-body">
               <div class="table-responsive mt-4">
-                <table class="table table-striped" id="table-generation">
+                <table class="table table-striped" id="table-general">
                     <thead>
                         <tr>
                             <th style="width: 5%">#</th>
                             <th>Name</th>
-                            <th>Years</th>
-                            <th >Graduated</th>
-                            <th ">Created</th>
+                            <th>Since</th>
+                            <th>Parent</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th style="width: 12%">Created</th>
                             <th style="width: 12%">Action</th>
                         </tr>
                     </thead>
@@ -54,34 +57,55 @@
   </div>
   <div class="col-md-6">
     <div class="form-group fill">
-        <label >Years</label>
-        <input id="years" name="years" type="text" class="form-control" placeholder="input here...">
-        <small id="years-alert" class="form-text text-danger"></small>
+        <label >Since</label>
+        <input id="since" name="since" type="date" class="form-control">
+        <small id="since-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group fill">
+        <label >Parent</label>
+        <input id="parent" name="parent" type="text" class="form-control">
+        <small id="parent-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group fill">
+        <label >Phone</label>
+        <input id="phone" name="phone" type="text" class="form-control">
+        <small id="phone-alert" class="form-text text-danger"></small>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group fill">
+        <label >Email</label>
+        <input id="email" name="email" type="text" class="form-control">
+        <small id="email-alert" class="form-text text-danger"></small>
     </div>
   </div>
   <div class="col-md-12 mt-3">
     <div class="form-group fill">
-        <label>Graduated</label>
-        <input id="graduated" type="date" name="graduated" class="form-control" ></input>
-        <small id="graduated-alert" class="form-text text-danger"></small>
+        <label>Address</label>
+        <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+        <small id="address-alert" class="form-text text-danger"></small>
     </div>
   </div>
 </div>
 @endsection
 @section('js-content')
     <script>
-      let url = `{{ config('app.url') }}/v1/generation`
+      let url = `{{ config('app.url') }}/v1/GeneralInformation`
 
-      const table = $('#table-generation').DataTable({
+      const table = $('#table-general').DataTable({
             "bAutoWidth": false
       })
 
-      const getGeneration = () => {
+      const getGeneral = () => {
         table.clear()
         $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
-              i+1 + '.', val.name, val.years, val.graduated, moment(val.created_at).format("DD MMMM YYYY"),
+              i+1 + '.', val.name, val.since, val.parent, val.phone, val.email, val.address, moment(val.created_at).format("DD MMMM YYYY"),
               `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
               <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
             ])
@@ -96,7 +120,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        getGeneration()
+        getGeneral()
       })
 
       const successAllert = () => {
@@ -106,7 +130,7 @@
           text: 'Data has been saved!'
         }).then((res) => {
           if (res.isConfirmed) {
-            getGeneration()
+            getGeneral()
             clear()
           }
         })
@@ -134,7 +158,7 @@
         $('#btn-send').html('Kirim')
       }
 
-      const fieldList = ['id', 'name', 'years', 'graduated']
+      const fieldList = ['id', 'name', 'since', 'parent', 'phone', 'email', 'address']
 
       const clear = () => {
         $.each(fieldList, (i, val) => {
@@ -149,12 +173,12 @@
       })
 
       $(document).on('click', '#btn-send', () => {
-        let dataGeneration = $('#form-upsert').serialize()
+        let dataGeneral = $('#form-upsert').serialize()
         proccessBtn()
         $.ajax({
           type: "POST",
           url: url,
-          data: dataGeneration,
+          data: dataGeneral,
           success: (result) => {
             $('#modalUpdate').modal('hide')
             successAllert()
@@ -171,17 +195,6 @@
             }
           }
         })
-      })
-
-       $(document).on('click', '#btn-edit', function() {
-        let _id = $(this).data('id')
-
-        $.get(url + '/' + _id, (result) => {
-          $.each(fieldList, (i, value) => {
-            $(`#${value}`).val(result.data[value])
-          })
-        })
-        $('#modalUpdate').modal('show')
       })
 
      
