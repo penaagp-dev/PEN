@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ExampleRepoInterfaces;
+use App\Interfaces\GaleryRepoInterfaces;
 use App\Interfaces\GenerationRepoInterfaces;
 use App\Repositories\ExampleRepository;
 use App\Repositories\GenerationRepository;
 use App\Repositories\GeneralInformationRepository;
 use App\Interfaces\GeneralInformationRepoInterfaces;
+use App\Repositories\GaleryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(GeneralInformationRepoInterfaces::class, GeneralInformationRepository::class);
         $this->app->bind(GenerationRepoInterfaces::class, GenerationRepository::class);
+        $this->app->bind(GaleryRepoInterfaces::class, GaleryRepository::class);
     }
 
     public function boot()

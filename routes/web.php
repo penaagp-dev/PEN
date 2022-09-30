@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMS\GaleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CMS\GenerationController;
 use App\Http\Controllers\Sample\ExampleController;
@@ -17,6 +18,10 @@ Route::get('/generation', function () {
     return view('Pages.Generation');
 });
 
+Route::get('/galery', function () {
+    return view('Pages.Galery');
+});
+
 Route::prefix('v1/example')->controller(ExampleController::class)->group(function () {
     Route::get('/', 'getAllData');
     Route::post('/', 'upsertData');
@@ -31,6 +36,13 @@ Route::prefix('v1/GeneralInformation')->controller(GeneralInformationController:
     Route::delete('/{general_information}', 'deleteData');
 });
 Route::prefix('v1/generation')->controller(GenerationController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::post('/', 'upsertData');
+    Route::get('/{generation}', 'getDataById');
+    Route::delete('/{generation}', 'deleteData');
+});
+
+Route::prefix('v1/galery')->controller(GaleryController::class)->group(function () {
     Route::get('/', 'getAllData');
     Route::post('/', 'upsertData');
     Route::get('/{generation}', 'getDataById');
