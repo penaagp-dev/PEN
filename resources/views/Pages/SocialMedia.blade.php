@@ -27,7 +27,6 @@
                     <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th>General ID</th>
                             <th>Name</th>
                             <th >Url</th>
                             <th >Description</th>
@@ -45,22 +44,16 @@
 @endsection
 @section('form')
 <div class="row py-4">
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >General ID</label>
-        <input type="hidden" name="id" id="id">
-        <input id="general" name="general" type="text" class="form-control" placeholder="input here..." autocomplete="off">
-        <small id="general-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-6">
+      <input type="hidden" name="id" id="id">
+      <input type="hidden" name="general_id" id="general_id"> 
+  <div class="col-md-12">
     <div class="form-group fill">
         <label >Name</label>
         <input id="name" name="name" type="text" class="form-control" placeholder="input here...">
         <small id="name-alert" class="form-text text-danger"></small>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="form-group fill">
         <label >Url</label>
         <input id="url" name="url" type="text" class="form-control" placeholder="input here...">
@@ -89,12 +82,19 @@
         $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
-              i+1 + '.', val.general_id, val.name, val.url, val.description, moment(val.created_at).format("DD MMMM YYYY"),
+              i+1 + '.',  val.name, val.url, val.description, moment(val.created_at).format("DD MMMM YYYY"),
               `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
               <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
             ])
             .draw()
           })
+        })
+      }
+
+      const getGeneralInformation = () => {
+        let generalUrl = `{{ config('app.url') }}/v1/general_information`
+        $.get(generalUrl, (res) => {
+          $('#general_id').val(res.data.id)
         })
       }
 
@@ -105,6 +105,7 @@
             }
         });
         getSocialMedia()
+        getGeneralInformation()
       })
 
       const successAllert = () => {
@@ -142,7 +143,7 @@
         $('#btn-send').html('Kirim')
       }
 
-      const fieldList = ['id','general_id', 'name', 'url', 'description']
+      const fieldList = ['id', 'name', 'url', 'description']
 
       const clear = () => {
         $.each(fieldList, (i, val) => {
@@ -180,53 +181,6 @@
           }
         })
       })
-
-      // $(document).on('click', '#btn-edit', function() {
-      //   let _id = $(this).data('id')
-
-      //   $.get(url + '/' + _id, (result) => {
-      //     $.each(fieldList, (i, value) => {
-      //       $(`#${value}`).val(result.data[value])
-      //     })
-      //   })
-      //   $('#modalUpdate').modal('show')
-      // })
-
-      // $(document).on('click', '#btn-del', function() {
-      //   let _id = $(this).data('id')
-      //   Swal.fire({
-      //     title: 'Apakah anda yakin?',
-      //     text: "Data akan di hapus permanen!",
-      //     icon: 'warning',
-      //     showCancelButton: true,
-      //     confirmButtonColor: '#3085d6',
-      //     cancelButtonColor: '#d33',
-      //     confirmButtonText: 'Ya, Hapus itu!',
-      //     cancelButtonText: 'Batal',
-      //   }).then((result) => {
-      //     if (result.isConfirmed) {
-      //       $.ajax({
-      //         type: "DELETE",
-      //         url: url + '/' + _id,
-      //         success: (result) => {
-      //           Swal.fire(
-      //             'Deleted!',
-      //             'Data berhasil di hapus.',
-      //             'success'
-      //           ).then((result) => {
-      //             if (result.isConfirmed) {
-      //               getSocialMedia()
-      //             }
-      //           })
-      //         },
-      //         error: (err) => {
-      //           dangerAlert()
-      //         }
-      //       })
-      //     }
-      //   })
-      // })
-    
-     
+      
     </script>
 @endsection
