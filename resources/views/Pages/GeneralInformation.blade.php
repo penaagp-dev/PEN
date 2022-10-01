@@ -197,6 +197,17 @@
         })
       })
 
-     
+      $(document).on('click', '#btn-edit', function() {
+        let _id = $(this).data('id')
+
+        $.get(url + '/' + _id, (result) => {
+          $.each(fieldList, (i, value) => {
+            $(`#${value}`).val(result.data[value])
+          })
+        })
+        $('#modalUpdate').modal('show')
+      })
+
+    
     </script>
 @endsection
