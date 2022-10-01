@@ -18,28 +18,55 @@
 @section('main-content')
     <div class="col-xl-12">
         <div class="card">
-            <div class="card-header">
-              <button class="btn btn-primary rounded" id="btn-add">Tambah Data</button>
-            </div>
             <div class="card-body">
-              <div class="table-responsive mt-4">
-                <table class="table table-striped" id="table-general">
-                    <thead>
-                        <tr>
-                            <th style="width: 5%">#</th>
-                            <th>Name</th>
-                            <th>Since</th>
-                            <th>Parent</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th style="width: 12%">Created</th>
-                            <th style="width: 12%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tb-content">
-                    </tbody>
-                </table>
+              <form class="row" id="form-post">
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label >Name</label>
+                      <input type="hidden" name="id" id="id">
+                      <input id="name" name="name" type="text" class="form-control" placeholder="input here..." autocomplete="off">
+                      <small id="name-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                      <label >Since</label>
+                      <input id="since" name="since" type="date" class="form-control">
+                      <small id="since-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group fill">
+                      <label >Parent</label>
+                      <input id="parent" name="parent" type="text" class="form-control">
+                      <small id="parent-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group fill">
+                      <label >Phone</label>
+                      <input id="phone" name="phone" type="text" class="form-control">
+                      <small id="phone-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group fill">
+                      <label >Email</label>
+                      <input id="email" name="email" type="text" class="form-control">
+                      <small id="email-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <div class="form-group fill">
+                      <label>Address</label>
+                      <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+                      <small id="address-alert" class="form-text text-danger"></small>
+                  </div>
+                </div>
+                <div class="card-header">
+                  <button type="button" class="btn btn-primary rounded" id="btn-save">Save</button>
+                </div>
+              </form>
               </div>
             </div>
         </div>
@@ -47,54 +74,12 @@
 @endsection
 @section('form')
 <div class="row py-4">
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >Name</label>
-        <input type="hidden" name="id" id="id">
-        <input id="name" name="name" type="text" class="form-control" placeholder="input here..." autocomplete="off">
-        <small id="name-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >Since</label>
-        <input id="since" name="since" type="date" class="form-control">
-        <small id="since-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >Parent</label>
-        <input id="parent" name="parent" type="text" class="form-control">
-        <small id="parent-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >Phone</label>
-        <input id="phone" name="phone" type="text" class="form-control">
-        <small id="phone-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group fill">
-        <label >Email</label>
-        <input id="email" name="email" type="text" class="form-control">
-        <small id="email-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
-  <div class="col-md-12 mt-3">
-    <div class="form-group fill">
-        <label>Address</label>
-        <textarea id="address" name="address" class="form-control" rows="3"></textarea>
-        <small id="address-alert" class="form-text text-danger"></small>
-    </div>
-  </div>
+  
 </div>
 @endsection
 @section('js-content')
     <script>
-      let url = `{{ config('app.url') }}/v1/general-information`
+      let url = `{{ config('app.url') }}/v1/general_information`
 
       const table = $('#table-general').DataTable({
             "bAutoWidth": false
@@ -103,14 +88,14 @@
       const getGeneral = () => {
         table.clear()
         $.get(url, (res) => {
-          $.each(res.data, (i, val) => {
-            table.row.add([
-              i+1 + '.', val.name, val.since, val.parent, val.phone, val.email, val.address, moment(val.created_at).format("DD MMMM YYYY"),
-              `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
-              <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
-            ])
-            .draw()
-          })
+          let item = res.data
+          if (item) {
+            $.each(item, (i, value) => {
+              $(`#${i}`).val(value)
+            })
+          } else {
+            $('#id').val('')
+          }
         })
       }
 
@@ -167,13 +152,8 @@
         })
       }
 
-      $(document).on('click', '#btn-add', function() {
-        clear()
-        $('#modalUpdate').modal('show')
-      })
-
-      $(document).on('click', '#btn-send', () => {
-        let dataGeneral = $('#form-upsert').serialize()
+      $(document).on('click', '#btn-save', () => {
+        let dataGeneral = $('#form-post').serialize()
         proccessBtn()
         $.ajax({
           type: "POST",
@@ -196,18 +176,5 @@
           }
         })
       })
-
-      $(document).on('click', '#btn-edit', function() {
-        let _id = $(this).data('id')
-
-        $.get(url + '/' + _id, (result) => {
-          $.each(fieldList, (i, value) => {
-            $(`#${value}`).val(result.data[value])
-          })
-        })
-        $('#modalUpdate').modal('show')
-      })
-
-    
     </script>
 @endsection
