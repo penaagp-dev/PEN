@@ -62,7 +62,7 @@
   <div class="col-md-12 mt-3">
     <div class="form-group fill">
         <label>Graduated</label>
-        <input id="graduated" type="date" name="graduated" class="form-control" ></input>
+        <input id="graduated" type="date" name="graduated" class="form-control" >
         <small id="graduated-alert" class="form-text text-danger"></small>
     </div>
   </div>
@@ -182,6 +182,41 @@
           })
         })
         $('#modalUpdate').modal('show')
+      })
+
+       $(document).on('click', '#btn-del', function() {
+        let _id = $(this).data('id')
+        Swal.fire({
+          title: 'Apakah anda yakin?',
+          text: "Data akan di hapus permanen!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus itu!',
+          cancelButtonText: 'Batal',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              type: "DELETE",
+              url: url + '/' + _id,
+              success: (result) => {
+                Swal.fire(
+                  'Deleted!',
+                  'Data berhasil di hapus.',
+                  'success'
+                ).then((result) => {
+                  if (result.isConfirmed) {
+                    getGeneration()
+                  }
+                })
+              },
+              error: (err) => {
+                dangerAlert()
+              }
+            })
+          }
+        })
       })
 
      
