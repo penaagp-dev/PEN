@@ -26,13 +26,6 @@
 </head>
 
 <body class="">
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-    <!-- [ Pre-loader ] End -->
     <!-- [ navigation menu ] start -->
     @include('Base.SideBar')
     <!-- [ navigation menu ] end -->
@@ -86,7 +79,7 @@
     <script src="assets/js/vendor-all.min.js"></script>
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/ripple.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
+    {{-- <script src="assets/js/pcoded.min.js"></script> --}}
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
     <script src="assets/js/moment.js"></script>

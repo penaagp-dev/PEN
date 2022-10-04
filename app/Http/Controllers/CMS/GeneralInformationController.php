@@ -41,9 +41,5 @@ class GeneralInformationController extends Controller
         return response()->json($GeneralInformation, $GeneralInformation['code']);
     }
 
-    public function deleteData($dataId): JsonResponse
-    {
-        $GeneralInformation = $this->GeneralRepo->deleteData($dataId);
-        return response()->json($GeneralInformation, $GeneralInformation['code']);
-    }
+   
 }
