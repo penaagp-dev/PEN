@@ -194,6 +194,40 @@
         $('#modalUpdate').modal('show')
       })
 
+      $(document).on('click', '#btn-del', function() {
+        let _id = $(this).data('id')
+        Swal.fire({
+          title: 'Apakah anda yakin?',
+          text: "Data akan di hapus permanen!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, Hapus itu!',
+          cancelButtonText: 'Batal',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              type: "DELETE",
+              url: url + '/' + _id,
+              success: (result) => {
+                Swal.fire(
+                  'Deleted!',
+                  'Data berhasil di hapus.',
+                  'success'
+                ).then((result) => {
+                  if (result.isConfirmed) {
+                    getSocialMedia()
+                  }
+                })
+              },
+              error: (err) => {
+                dangerAlert()
+              }
+            })
+          }
+        })
+      })
 
     </script>
 @endsection
