@@ -68,7 +68,7 @@
     <div class="form-group fill">
         <label>Deskripsi</label>
         <textarea id="description" name="description" class="form-control" rows="3"></textarea>
-        <small id="is_text-alert" class="form-text text-danger"></small>
+        <small id="description-alert" class="form-text text-danger"></small>
     </div>
   </div>
 </div>
@@ -147,6 +147,7 @@
         })
         disableSpinner()
         $('#path').hide();
+        $('.form-text').html('')
       }
 
       $(document).on('click', '#btn-add', function() {
@@ -170,7 +171,6 @@
           },
           error: (err) => {
             let myErr = err.responseJSON
-            console.log(myErr);
             if (myErr.errors.length > 0) {
               $.each(myErr.errors.data, (i, value) => {
                 $(`#${i}-alert`).html(value)

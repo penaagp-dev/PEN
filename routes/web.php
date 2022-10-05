@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CMS\CalonAnggotaController;
 use App\Http\Controllers\CMS\GaleryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CMS\GenerationController;
@@ -64,4 +65,11 @@ Route::prefix('v1/socialmedia')->controller(SocialMediaController::class)->group
     Route::post('/', 'upsertData');
     Route::get('/{socialmedia}', 'getDataById');
     Route::delete('/{socialmedia}', 'deleteData');
+});
+
+Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::post('/', 'upsertData');
+    Route::get('/{calon_anggota}', 'getDataById');
+    Route::delete('/{calon_anggota}', 'deleteData');
 });
