@@ -9,28 +9,36 @@ use App\Http\Controllers\CMS\GeneralInformationController;
 use App\Http\Controllers\CMS\SocialMediaController;
 
 Route::get('/', function () {
+    return view('Web.Index');
+})->name('index');
+
+Route::get('/recruitment', function () {
+    return view('Web.Recruitment');
+})->name('recruitment');
+
+Route::get('/cms/dashboard', function () {
     return view('Pages.Dashboard');
-});
+})->name('cms.dashboard');
 
-Route::get('/example', function () {
+Route::get('/cms/example', function () {
     return view('Pages.Example');
-});
+})->name('cms.example');
 
-Route::get('/general_information', function () {
+Route::get('/cms/general_information', function () {
     return view('Pages.GeneralInformation');
-});
+})->name('cms.general_info');
 
-Route::get('/generation', function () {
+Route::get('/cms/generation', function () {
     return view('Pages.Generation');
-});
+})->name('cms.generation');
 
-Route::get('/galery', function () {
+Route::get('/cms/galery', function () {
     return view('Pages.Galery');
-});
+})->name('cms.galery');
 
-Route::get('/socialmedia', function () {
+Route::get('/cms/socialmedia', function () {
     return view('Pages.SocialMedia');
-});
+})->name('cms.social_media');
 
 Route::prefix('v1/example')->controller(ExampleController::class)->group(function () {
     Route::get('/', 'getAllData');
