@@ -1,17 +1,17 @@
 @extends('Base.Skelton')
 @section('tittle')
-    Generation page
+    Galery page
 @endsection
 @section('head-content')
     <div class="col-md-12">
         <div class="page-header-title">
-            <h5 class="m-b-10">Generation</h5>
+            <h5 class="m-b-10">Galery</h5>
         </div>
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a>
             </li>
             <li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="#!">Generation</a></li>
+            <li class="breadcrumb-item"><a href="#!">Galery</a></li>
         </ul>
     </div>
 @endsection
@@ -23,14 +23,13 @@
             </div>
             <div class="card-body">
               <div class="table-responsive mt-4">
-                <table class="table table-striped" id="table-generation">
+                <table class="table table-striped" id="table-galery">
                     <thead>
                         <tr>
                             <th style="width: 5%">#</th>
-                            <th>Name</th>
-                            <th>Years</th>
-                            <th >Graduated</th>
-                            <th ">Created</th>
+                            <th>Nama</th>
+                            <th>Description</th>
+                            <th style="width: 15%">Created</th>
                             <th style="width: 12%">Action</th>
                         </tr>
                     </thead>
@@ -44,44 +43,50 @@
 @endsection
 @section('form')
 <div class="row py-4">
-  <div class="col-md-6">
+  <div class="col-md-12">
+    <div class="text-center">
+      <img id="path" src="" alt="" style="height: auto; width: 30%; padding-bottom: 30px;">
+    </div>
     <div class="form-group fill">
-        <label >Name</label>
+        <label>Nama Gambar</label>
         <input type="hidden" name="id" id="id">
         <input id="name" name="name" type="text" class="form-control" placeholder="input here..." autocomplete="off">
         <small id="name-alert" class="form-text text-danger"></small>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-12 mt-2">
     <div class="form-group fill">
-        <label >Years</label>
-        <input id="years" name="years" type="text" class="form-control" placeholder="input here...">
-        <small id="years-alert" class="form-text text-danger"></small>
+        <label>Gambar</label>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="path">
+          <label class="custom-file-label">Pilih file</label>
+        </div>
+        <small id="path-alert" class="form-text text-danger"></small>
     </div>
   </div>
   <div class="col-md-12 mt-3">
     <div class="form-group fill">
-        <label>Graduated</label>
-        <input id="graduated" type="date" name="graduated" class="form-control" >
-        <small id="graduated-alert" class="form-text text-danger"></small>
+        <label>Deskripsi</label>
+        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+        <small id="is_text-alert" class="form-text text-danger"></small>
     </div>
   </div>
 </div>
 @endsection
 @section('js-content')
     <script>
-      let url = `{{ config('app.url') }}/v1/generation`
+      let url = `{{ config('app.url') }}/v1/galery`
 
-      const table = $('#table-generation').DataTable({
+      const table = $('#table-galery').DataTable({
             "bAutoWidth": false
       })
 
-      const getGeneration = () => {
+      const getSample = () => {
         table.clear().draw()
         $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
-              i+1 + '.', val.name, val.years, val.graduated, moment(val.created_at).format("DD MMMM YYYY"),
+              i+1 + '.', val.name, val.description, moment(val.created_at).format("DD MMMM YYYY"),
               `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
               <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
             ])
@@ -96,7 +101,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        getGeneration()
+        getSample()
       })
 
       const successAllert = () => {
@@ -106,7 +111,7 @@
           text: 'Data has been saved!'
         }).then((res) => {
           if (res.isConfirmed) {
-            getGeneration()
+            getSample()
             clear()
           }
         })
@@ -134,13 +139,14 @@
         $('#btn-send').html('Kirim')
       }
 
-      const fieldList = ['id', 'name', 'years', 'graduated']
+      const fieldList = ['id', 'name', 'description']
 
       const clear = () => {
         $.each(fieldList, (i, val) => {
           $(`#${val}`).val('')
-          disableSpinner()
         })
+        disableSpinner()
+        $('#path').hide();
       }
 
       $(document).on('click', '#btn-add', function() {
@@ -149,18 +155,22 @@
       })
 
       $(document).on('click', '#btn-send', () => {
-        let dataGeneration = $('#form-upsert').serialize()
+        let dataSample = new FormData($('#form-upsert')[0]);
         proccessBtn()
         $.ajax({
           type: "POST",
           url: url,
-          data: dataGeneration,
+          data: dataSample,
+          cache: false,
+          contentType: false,
+          processData: false,
           success: (result) => {
             $('#modalUpdate').modal('hide')
             successAllert()
           },
           error: (err) => {
             let myErr = err.responseJSON
+            console.log(myErr);
             if (myErr.errors.length > 0) {
               $.each(myErr.errors.data, (i, value) => {
                 $(`#${i}-alert`).html(value)
@@ -173,18 +183,20 @@
         })
       })
 
-       $(document).on('click', '#btn-edit', function() {
+      $(document).on('click', '#btn-edit', function() {
         let _id = $(this).data('id')
 
         $.get(url + '/' + _id, (result) => {
           $.each(fieldList, (i, value) => {
             $(`#${value}`).val(result.data[value])
           })
+          $('#path').show();
+          $('#path').attr('src', `{{asset('storage/profile/${result.data.path}')}}`);
         })
         $('#modalUpdate').modal('show')
       })
 
-       $(document).on('click', '#btn-del', function() {
+      $(document).on('click', '#btn-del', function() {
         let _id = $(this).data('id')
         Swal.fire({
           title: 'Apakah anda yakin?',
@@ -207,7 +219,7 @@
                   'success'
                 ).then((result) => {
                   if (result.isConfirmed) {
-                    getGeneration()
+                    getSample()
                   }
                 })
               },
@@ -218,7 +230,5 @@
           }
         })
       })
-
-     
     </script>
 @endsection

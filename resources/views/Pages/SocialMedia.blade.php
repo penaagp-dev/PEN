@@ -78,7 +78,7 @@
       })
 
       const getSocialMedia = () => {
-        table.clear()
+        table.clear().draw()
         $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
