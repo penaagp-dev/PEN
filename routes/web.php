@@ -25,6 +25,8 @@ Route::get('/generation', function () {
 
 Route::get('/galery', function () {
     return view('Pages.Galery');
+});
+
 Route::get('/socialmedia', function () {
     return view('Pages.SocialMedia');
 });

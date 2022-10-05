@@ -29,8 +29,7 @@
                             <th style="width: 5%">#</th>
                             <th>Nama</th>
                             <th>Description</th>
-                            <th style="width: 12%">Preview</th>
-                            <th style="width: 12%">Created</th>
+                            <th style="width: 15%">Created</th>
                             <th style="width: 12%">Action</th>
                         </tr>
                     </thead>
@@ -45,8 +44,11 @@
 @section('form')
 <div class="row py-4">
   <div class="col-md-12">
+    <div class="text-center">
+      <img id="path" src="" alt="" style="height: auto; width: 30%; padding-bottom: 30px;">
+    </div>
     <div class="form-group fill">
-        <label >Nama</label>
+        <label>Nama Gambar</label>
         <input type="hidden" name="id" id="id">
         <input id="name" name="name" type="text" class="form-control" placeholder="input here..." autocomplete="off">
         <small id="name-alert" class="form-text text-danger"></small>
@@ -54,7 +56,7 @@
   </div>
   <div class="col-md-12 mt-2">
     <div class="form-group fill">
-        <label >Date Sample</label>
+        <label>Gambar</label>
         <div class="custom-file">
           <input type="file" class="custom-file-input" name="path">
           <label class="custom-file-label">Pilih file</label>
@@ -64,8 +66,8 @@
   </div>
   <div class="col-md-12 mt-3">
     <div class="form-group fill">
-        <label>Is Text</label>
-        <textarea id="is_text" name="is_text" class="form-control" rows="3"></textarea>
+        <label>Deskripsi</label>
+        <textarea id="description" name="description" class="form-control" rows="3"></textarea>
         <small id="is_text-alert" class="form-text text-danger"></small>
     </div>
   </div>
@@ -80,17 +82,17 @@
       })
 
       const getSample = () => {
-        table.clear()
-        // $.get(url, (res) => {
-        //   $.each(res.data, (i, val) => {
-        //     table.row.add([
-        //       i+1 + '.', val.sample, val.is_text, val.date_sample, moment(val.created_at).format("DD MMMM YYYY"),
-        //       `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
-        //       <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
-        //     ])
-        //     .draw()
-        //   })
-        // })
+        table.clear().draw()
+        $.get(url, (res) => {
+          $.each(res.data, (i, val) => {
+            table.row.add([
+              i+1 + '.', val.name, val.description, moment(val.created_at).format("DD MMMM YYYY"),
+              `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
+            ])
+            .draw()
+          })
+        })
       }
 
       $(document).ready(() => {
@@ -142,8 +144,9 @@
       const clear = () => {
         $.each(fieldList, (i, val) => {
           $(`#${val}`).val('')
-          disableSpinner()
         })
+        disableSpinner()
+        $('#path').hide();
       }
 
       $(document).on('click', '#btn-add', function() {
@@ -162,12 +165,12 @@
           contentType: false,
           processData: false,
           success: (result) => {
-            console.log(result);
             $('#modalUpdate').modal('hide')
             successAllert()
           },
           error: (err) => {
             let myErr = err.responseJSON
+            console.log(myErr);
             if (myErr.errors.length > 0) {
               $.each(myErr.errors.data, (i, value) => {
                 $(`#${i}-alert`).html(value)
@@ -187,6 +190,8 @@
           $.each(fieldList, (i, value) => {
             $(`#${value}`).val(result.data[value])
           })
+          $('#path').show();
+          $('#path').attr('src', `{{asset('storage/profile/${result.data.path}')}}`);
         })
         $('#modalUpdate').modal('show')
       })

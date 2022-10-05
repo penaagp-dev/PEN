@@ -81,12 +81,7 @@
     <script>
       let url = `{{ config('app.url') }}/v1/general_information`
 
-      const table = $('#table-general').DataTable({
-            "bAutoWidth": false
-      })
-
       const getGeneral = () => {
-        table.clear()
         $.get(url, (res) => {
           let item = res.data
           if (item) {

@@ -23,7 +23,32 @@ class GaleryController extends Controller
 
     public function upsertData(Request $request): JsonResponse
     {
-        $fileName = $request->file('path');
-        return response()->json($fileName->getClientOriginalName());
+        $fileUpload = $request->file('path');
+        $fileName = $request->name . '.' . $fileUpload->getClientOriginalExtension();
+        $filePath = public_path('storage\\profile\\');
+        $galeryId = $request->id | null;
+        $newDetail = array(
+            'name' => $request->name, 
+            'path' => $fileName, 
+            'description' => $request->description,
+        );
+
+        $data = $this->galeryRepo->upsertGalery($galeryId, $newDetail);
+        if ($data['code'] == 200) {
+            $fileUpload->move($filePath, $fileName);
+        }
+        return response()->json($data, $data['code']);
+    }
+
+    public function getDataById($id): JsonResponse
+    {
+        $galery = $this->galeryRepo->getGaleryById($id);
+        return response()->json($galery, $galery['code']);
+    }
+
+    public function deleteData($galeryId): JsonResponse
+    {
+        $example = $this->galeryRepo->deleteGalery($galeryId);
+        return response()->json($example, $example['code']);
     }
 }

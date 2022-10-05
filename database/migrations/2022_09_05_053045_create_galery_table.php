@@ -6,24 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateGaleryTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('galery', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('path');
+            $table->text('description');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('galery');
