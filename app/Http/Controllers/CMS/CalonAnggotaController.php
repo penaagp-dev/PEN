@@ -47,4 +47,10 @@ class CalonAnggotaController extends Controller
         }
         return response()->json($data, $data['code']);
     }
+
+    public function getDataById($caId)
+    {
+        $CA = $this->caRepo->getCaById($caId);
+        return response()->json($CA, $CA['code']);
+    }
 }

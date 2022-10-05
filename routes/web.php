@@ -70,6 +70,6 @@ Route::prefix('v1/socialmedia')->controller(SocialMediaController::class)->group
 Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
     Route::get('/', 'getAllData');
     Route::post('/', 'upsertData');
-    Route::get('/{socialmedia}', 'getDataById');
-    Route::delete('/{socialmedia}', 'deleteData');
+    Route::get('/{calon_anggota}', 'getDataById');
+    Route::delete('/{calon_anggota}', 'deleteData');
 });

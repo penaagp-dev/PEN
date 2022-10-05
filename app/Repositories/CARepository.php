@@ -30,7 +30,21 @@ class CARepository implements CARepoInterfaces
 
   public function getCaById($caId)
   {
-    
+    $db = new CalonAnggotaModel();
+    try {
+      $CA = array(
+        'code' => 200,
+        'message' => 'get data successfully',
+        'data' => $db->whereId($caId)->first()
+      );
+    } catch (\Throwable $th) {
+      $CA = array(
+        'code' => 500,
+        'message' => $th->getMessage(),
+      );
+    }
+
+    return $CA;
   }
 
   public function upsertCa($caId, array $newDetail)
@@ -42,9 +56,9 @@ class CARepository implements CARepoInterfaces
         'message' => 'data has successfully proccess'
       );
       if ($caId) {
-        $getGalery = $db->whereId($caId);
-        File::delete(public_path('storage/recrutment/' . $getGalery->value('foto')));
-        $CA['data'] = $getGalery->update($newDetail);
+        $getCa = $db->whereId($caId);
+        File::delete(public_path('storage/recrutment/' . $getCa->value('foto')));
+        $CA['data'] = $getCa->update($newDetail);
       } else {
         $CA['data'] = $db->create($newDetail);
       }
