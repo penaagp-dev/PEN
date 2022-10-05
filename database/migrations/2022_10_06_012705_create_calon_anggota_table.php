@@ -14,8 +14,9 @@ class CreateCalonAnggotaTable extends Migration
             $table->string('panggilan', 50);
             $table->string('umur', 2);
             $table->text('alamat');
+            $table->string('no_telepon', 13);
             $table->string('agama', 20);
-            $table->string('email', 50)->unique();
+            $table->string('email', 50);
             $table->text('foto');
             $table->string('semester', 2);
             $table->string('prodi', 50);

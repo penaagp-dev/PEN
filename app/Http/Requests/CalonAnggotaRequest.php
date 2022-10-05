@@ -22,10 +22,10 @@ class CalonAnggotaRequest extends FormRequest
             "alamat" => 'required|min:5',
             "no_telepon" => 'required|min:10|max:13',
             "agama" => 'required|min:2|max:20',
-            "email" => 'required|email|unique:calon_anggota,email',
+            "email" => 'required|email',
             "foto" => 'required|image|max:10240',
-            "semester" => 'required|max:2|unique:calon_anggota,semester',
-            "prodi" => 'required|min:2|max:50|unique:calon_anggota,prodi',
+            "semester" => 'required|max:2',
+            "prodi" => 'required|min:2|max:50',
         ];
     }
 
