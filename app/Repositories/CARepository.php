@@ -74,6 +74,22 @@ class CARepository implements CARepoInterfaces
 
   public function deleteCa($caId)
   {
-    
+    $db = new CalonAnggotaModel();
+    try {
+      $getCa = $db->whereId($caId);
+      File::delete(public_path('storage/recrutment/' . $getCa->value('foto')));
+      $CA = array(
+        'code' => 200,
+        'message' => 'delete data successfully',
+        'data' => $getCa->delete()
+      );
+    } catch (\Throwable $th) {
+      $CA = array(
+        'code' => 500,
+        'message' => $th->getMessage(),
+      );
+    }
+
+    return $CA;
   }
 }

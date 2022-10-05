@@ -53,4 +53,10 @@ class CalonAnggotaController extends Controller
         $CA = $this->caRepo->getCaById($caId);
         return response()->json($CA, $CA['code']);
     }
+
+    public function deleteData($caId): JsonResponse
+    {
+        $CA = $this->caRepo->deleteCa($caId);
+        return response()->json($CA, $CA['code']);
+    }
 }
