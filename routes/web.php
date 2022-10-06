@@ -87,6 +87,6 @@ Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group
     Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
 });
 
-Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+Route::middleware(['cors'])->prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
     Route::post('/', 'upsertData')->name('recruitment.post');
 });
