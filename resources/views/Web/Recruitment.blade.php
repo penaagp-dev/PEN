@@ -54,7 +54,7 @@
                             </div>
                             <div class="input-group line">
                                 <select class="select" name="agama">
-                                    <option selected disabled>-Select-</option>
+                                    <option selected disabled>Agama</option>
                                     <option value="islam">Islam</option>
                                     <option value="kriten">Kristen</option>
                                     <option value="hindu">Hindu</option>
