@@ -234,6 +234,7 @@
                         })
                     } else {
                         dangerAlert()
+                        console.log(err);
                     }
                     $('#btn-send').html('Send <i class="fa-solid fa-paper-plane"></i>')
                     $('#btn-send').prop('disabled', false)
