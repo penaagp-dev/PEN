@@ -24,7 +24,7 @@ class CalonAnggotaRequest extends FormRequest
             "agama" => 'required|min:2|max:20',
             "email" => 'required|email|unique:calon_anggota,email',
             "sex" => 'required|min:2|max:15',
-            "foto" => 'required|image|max:10240',
+            "foto" => 'required|image',
             "semester" => 'required|max:2',
             "prodi" => 'required|min:2|max:50',
         ];
