@@ -26,7 +26,7 @@ class GaleryController extends Controller
     {
         $fileUpload = $request->file('path');
         $fileName = $request->name . '.' . $fileUpload->getClientOriginalExtension();
-        $filePath = public_path('storage\\profile\\');
+        $filePath = public_path('storage/profile/');
         $galeryId = $request->id | null;
         $newDetail = array(
             'name' => $request->name, 
