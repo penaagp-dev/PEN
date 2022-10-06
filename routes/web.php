@@ -13,9 +13,12 @@ Route::get('/', function () {
     return view('Web.Index');
 })->name('index');
 
-Route::get('/recruitment', function () {
-    return view('Web.Recruitment');
-})->name('recruitment');
+Route::prefix('/recruitment')->group(function() {
+    Route::get('/', function() {
+        return view('Web.Recruitment');
+    })->name('web.recruitment');
+    Route::post('/v2', [CalonAnggotaController::class, 'upsertData']);
+});
 
 Route::get('/cms/login', function () {
     return view('Auth.Login');
@@ -81,9 +84,8 @@ Route::middleware('auth')->group(function() {
 
 });
 
-Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
-    Route::get('/', 'getAllData');
-    Route::post('/', 'upsertData')->name('recruitment.post');
-    Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
-    Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
-});
+// Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+//     Route::get('/', 'getAllData');
+//     Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
+//     Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
+// });

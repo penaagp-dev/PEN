@@ -212,7 +212,7 @@
             $(document).on('click', '#btn-send', function() {
                 $(this).html('Loading ... <i class="fa-solid fa-spinner"></i>')
                 $(this).prop('disabled', true)
-                let url = `{{config('app.url')}}/v2/recrutment`
+                let url = `{{config('app.url')}}/recruitment/v2`
                 let data = new FormData($('#form-data')[0])
 
                 $.ajax({
