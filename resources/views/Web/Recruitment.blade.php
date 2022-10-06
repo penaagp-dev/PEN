@@ -190,7 +190,25 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             })
+            const successAllert = () => {
+            Swal.fire({
+            icon: 'success',
+            title: 'Kerja Bagus',
+            text: 'Kamu berhasil terdaftar!'
+                }).then((res) => {
+                    if (res.isConfirmed) {
+                        window.location.href = "https://penaku.tech";
+                    }
+                })
+            }
 
+            const dangerAlert = () => {
+                Swal.fire({
+                icon: 'warning',
+                title: 'Error!',
+                text: 'Server sedang bermasalah'
+                })
+            }
             $(document).on('click', '#btn-send', function() {
                 $(this).html('Loading ... <i class="fa-solid fa-spinner"></i>')
                 $(this).prop('disabled', true)
@@ -222,7 +240,6 @@
                 })
             })
         })
-        
     </script>
 </body>
 </html>
