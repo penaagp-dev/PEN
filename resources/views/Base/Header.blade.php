@@ -18,16 +18,13 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
-                            <a href="auth-signin.html" class="dud-logout" title="Logout">
-                                <i class="feather icon-log-out"></i>
-                            </a>
+                            <img src="{{ asset('assets/images/user/avatar-1.jpg') }}" class="img-radius" alt="User-Profile-Image">
+                            <span>{{Auth::user()->username}}</span>
                         </div>
                         <ul class="pro-body">
-                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-pie-chart"></i>
-                                    Pengaturan Akun</a></li>
-                            <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-log-out"></i> My
+                            {{-- <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-pie-chart"></i>
+                                    Pengaturan Akun</a></li> --}}
+                            <li><a href="{{route('logout')}}" class="dropdown-item"><i class="feather icon-log-out"></i> My
                                     Logout</a></li>
                         </ul>
                     </div>
