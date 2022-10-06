@@ -233,6 +233,7 @@
                             $(`#${i}-alert`).html(value)
                         })
                     } else {
+                        console.log(err);
                         dangerAlert()
                     }
                     $('#btn-send').html('Send <i class="fa-solid fa-paper-plane"></i>')

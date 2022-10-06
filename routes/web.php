@@ -83,10 +83,7 @@ Route::middleware('auth')->group(function() {
 
 Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
     Route::get('/', 'getAllData');
-    Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
-    Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
-});
-
-Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
     Route::post('/', 'upsertData')->name('recruitment.post');
+    Route::get('/{calon_anggota}', 'getDataById');
+    Route::delete('/{calon_anggota}', 'deleteData');
 });
