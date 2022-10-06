@@ -228,6 +228,7 @@
                 },
                 error: (err) => {
                     let myErr = err.responseJSON
+                    $('.form-text').html('')
                     if (err.status == 422) {
                         $.each(myErr.errors.data, (i, value) => {
                             $(`#${i}-alert`).html(value)
