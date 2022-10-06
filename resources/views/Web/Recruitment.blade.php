@@ -53,6 +53,16 @@
                                 <small id="umur-alert" class="form-text text-danger"></small>
                             </div>
                             <div class="input-group line">
+                                <select class="select" name="agama">
+                                    <option selected disabled>-Select-</option>
+                                    <option value="islam">Islam</option>
+                                    <option value="kriten">Kristen</option>
+                                    <option value="hindu">Hindu</option>
+                                    <option value="budha">budha</option>
+                                </select>
+                                <small id="agama-alert" class="form-text text-danger"></small>
+                            </div>
+                            <div class="input-group line">
                                 <input name="no_telepon" type="number" placeholder="Nomor WhatsApp">
                                 <small id="no_telepon-alert" class="form-text text-danger"></small>
                             </div>
@@ -66,16 +76,6 @@
                             </div>
                         </div>
                         <div class="w-100">
-                            <div class="input-group">
-                                <select class="select" name="agama">
-                                    <option selected disabled>-Select-</option>
-                                    <option value="islam">Islam</option>
-                                    <option value="kriten">Kristen</option>
-                                    <option value="hindu">Hindu</option>
-                                    <option value="budha">budha</option>
-                                </select>
-                                <small id="agama-alert" class="form-text text-danger"></small>
-                            </div>
                             <div class="input-group">
                                 <span class="fw-500 mb-2">Semester</span>
                                 <table>
