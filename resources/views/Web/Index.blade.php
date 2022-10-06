@@ -62,7 +62,7 @@
             </span>
             <h1 id="coverHeadTitle">PENA</h1>
         </div>
-        <a href="join.html">
+        <a href="{{route('recruitment')}}">
             <button class="btn-cover">Join Us</button>
         </a>
     </div>
@@ -116,7 +116,8 @@
                     <div class="w-50-100">
                         <h1 class="fw-700">About PENA</h1>
                         <p class="about-pena-desc">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus, odio quibusdam. Ipsam dicta vel culpa! Officia delectus soluta saepe perferendis rerum molestias adipisci dicta exercitationem, iusto repellat provident excepturi! Dignissimos distinctio quaerat est, accusamus totam maxime reiciendis? Beatae modi adipisci impedit quae officia aperiam hic atque dignissimos id obcaecati. Consectetur?
+                            Pena adalah organisasi intra kampus yang bergerak dibidang pengembangan software (Programming Engineering dan Networking) untuk membantu
+                            mahasiswa dalam mengembangkan minat dan bakat dalam bidang IT
                         </p>
                     </div>
                 </div>
@@ -133,7 +134,9 @@
                             <i class="fa-solid fa-code font-40"></i>
                             <br> <br>
                             <h3>Programming</h3>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem deleniti est, facilis illo voluptas similique ducimus alias placeat aliquid esse iste repellat provident suscipit quas maxime id, dicta hic autem.
+                            Media belajar dengan instruktur handal yang sudah berpengalaman
+                            dalam dunia software development. Belajar berbagai metode yang digunakan seorang developer
+                            untuk mencipatakan sebuah product berbasis IT.
                         </div>
                     </div>
     
@@ -142,7 +145,8 @@
                             <i class="fa-sharp fa-solid fa-gear font-40"></i>
                             <br> <br>
                             <h3>Engineering</h3>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem deleniti est, facilis illo voluptas similique ducimus alias placeat aliquid esse iste repellat provident suscipit quas maxime id, dicta hic autem.
+                            Mempelajari perangkat keras, komponen-komponen yang membentuk sebuah komputer, melakukan installasi
+                            berbagai Operation Sistem (OS), serta melakukan maintenance ringan terhadap komputer.
                         </div>
                     </div>
     
@@ -151,7 +155,8 @@
                             <i class="fa-solid fa-wifi font-40"></i>
                             <br> <br>
                             <h3>Networking</h3>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem deleniti est, facilis illo voluptas similique ducimus alias placeat aliquid esse iste repellat provident suscipit quas maxime id, dicta hic autem.
+                            Belajar tentang komponen perangkat jaringan, struktur dasar jaringan dan melakukan installasi skala kecil
+                            untuk dapat menghubungkan komputer satu dengan komputer lainnya
                         </div>
                     </div>
                 </div>
@@ -165,7 +170,7 @@
                         <p class="font-25 fw-500 join-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                             Are you ready to be generation 9 in PENA?
                         </p>
-                        <a href="join.html">
+                        <a href="{{route('recruitment')}}">
                             <button class="button btn-blue" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">I'am Ready</button>
                         </a>
                     </div>
@@ -177,32 +182,32 @@
             <!-- ===== MEMBER START ===== -->
             <div class="member">
                 <div class="container text-center pt-5 pb-4">
-                    <h2>Organization Core People</h2>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis, ullam!</p>
+                    <h2>Perangkat Keras PENA</h2>
+                    <p>Pengurus inti yang menjabat saat ini</p>
                 </div>
                 <div class="member-group container">
-                    <div class="card-member" id="member1" onmouseover="member1over()" style="background: url({{ asset('web/assets/image/people-1.webp') }});">
+                    <div class="card-member" id="member1" onmouseover="member1over()" style="background: url({{ asset('web/assets/image/002.jpg') }});">
                         <div class="text-member" id="textMember1">
-                            <h4>Full Name</h4>
-                            <p>Title here</p>
+                            <h4>I KETUT DIVTA SURYAWAN</h4>
+                            <p>Wakil Ketua Umum</p>
                         </div>
                     </div>
-                    <div class="card-member member-active" id="member2" onmouseover="member2over()" style="background: url({{ asset('web/assets/image/people-2.webp') }});">
+                    <div class="card-member member-active" id="member2" onmouseover="member2over()" style="background: url({{ asset('web/assets/image/001.jpg') }});">
                         <div class="text-member" id="textMember2">
-                            <h4>Full Name</h4>
-                            <p>Title here</p>
+                            <h4>AKBAR TRI WICAKSONO</h4>
+                            <p>Ketua Umum</p>
                         </div>
                     </div>
-                    <div class="card-member" id="member3" onmouseover="member3over()" style="background: url({{ asset('web/assets/image/people-3.webp') }});">
+                    <div class="card-member" id="member3" onmouseover="member3over()" style="background: url({{ asset('web/assets/image/003.jpg') }});">
                         <div class="text-member" id="textMember3">
-                            <h4>Full Name</h4>
-                            <p>Title here</p>
+                            <h4>NUR HUDAYAH</h4>
+                            <p>Sekretaris Umum</p>
                         </div>
                     </div>
-                    <div id="member4" onmouseover="member4over()" style="background: url({{ asset('web/assets/image/people-4.webp') }});" class="card-member">
+                    <div id="member4" onmouseover="member4over()" style="background: url({{ asset('web/assets/image/004.jpg') }});" class="card-member">
                         <div class="text-member" id="textMember4">
-                            <h4>Full Name</h4>
-                            <p>Title here</p>
+                            <h4>SITI RAHAYU</h4>
+                            <p>Bendahara Umum</p>
                         </div>
                     </div>
                 </div>
@@ -214,13 +219,10 @@
             <div class="visi">
                 <div class="about-group container">
                     <div class="w-50-100">
-                        <h1 class="fw-700">Visi</h1>
+                        <h1 class="fw-700">Visi Misi</h1>
                         <p class="about-pena-desc">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure vitae rem, sit nesciunt quibusdam quo laboriosam libero soluta reiciendis esse!
-                        </p>
-                        <h1 class="fw-700 mt-3">Misi</h1>
-                        <p class="about-pena-desc">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure vitae rem, sit nesciunt quibusdam quo laboriosam libero soluta reiciendis esse!
+                            Menciptakan kader yang siap saji dan berdaya saing dalam bidang IT serta mencipatakan lingkungan
+                            kekeluargaan didalam maupun diluar rumah
                         </p>
                     </div>
                     <div class="w-50-100 goals">
@@ -243,7 +245,7 @@
                                 <h3 class="mt-2">PENA</h3>
                             </div>
                             <div class="font-14 footer-text">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi voluptas earum maiores impedit id optio repellat tenetur laudantium quaerat accusantium.
+                                Tetap jaga kesehatan, jangan lupa makan tiga kali sehari dan jangan lupa <b>Titik Koma</b>
                             </div>
                         </div>
                         <div class="w-100 d-flex justify-content-center">
@@ -251,23 +253,23 @@
                                 <span class="fw-bold letter-1">Social Media</span>
                                 <div class="sosmed fw-light font-25 mt-2">
                                     <span>
-                                        <a href="https://facebook.com">
+                                        <a target="_blank" href="https://www.facebook.com/profile.php?id=100069797633591">
                                             <i class="fa-brands fa-square-facebook"></i>
                                         </a>
                                     </span>
                                     <span>
-                                        <a href="https://instagram.com">
+                                        <a target="_blank" href="https://instagram.com/pena_stmikadhiguna?igshid=YmMyMTA2M2Y=">
                                             <i class="fa-brands fa-instagram"></i>
                                         </a>
                                     </span>
                                     <span>
-                                        <a href="https://youtube.com">
+                                        <a target="_blank" href="https://youtube.com/channel/UCXlphenvs85HHhQcnOCUx6g">
                                             <i class="fa-brands fa-youtube"></i>
                                         </a>
                                     </span>
                                     <span style="margin-right: 0px;">
-                                        <a href="https://tiktok.com">
-                                            <i class="fa-brands fa-tiktok"></i>
+                                        <a target="_blank" href="https://twitter.com/PenaAdhiguna?t=vQb_a0VFPAy5wlDYCC9FpQ&s=09">
+                                            <i class="fa-brands fa-twitter"></i>
                                         </a>
                                     </span>
                                 </div>
@@ -275,7 +277,7 @@
                                 <span class="fw-bold letter-1">Contact</span>
                                 <div class="fw-light sosmed contact">
                                     <span>
-                                        <a href="">
+                                        <a href="https://wa.me/+6287810216949?text=Halo%20kak,%20mau%20tanya%20seputaran%20pena%20dong" target="_blank">
                                             <i class="fa-brands fa-whatsapp"></i>
                                             <span class="klik-me">Click Me!</span>
                                         </a>
@@ -298,8 +300,6 @@
                 </section>
             </footer>
             <!-- ===== FOOTER END ===== -->
-
-            
         </div>
     </div>
 
@@ -311,10 +311,8 @@
     <script>
         AOS.init();
     </script>
-    <!-- ===== SWIPPER ===== -->
-    <script src="{{ asset('web/assets/swipper/js/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('web/assets/swipper/js/script.js') }}"></script>
     <!-- ===== BOOTSTRAP ===== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 </body>
 </html>

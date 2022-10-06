@@ -11,7 +11,7 @@ class CalonAnggotaModel extends Model
     protected $table = 'calon_anggota';
     protected $fillable = [
         'id', 'nama', 'panggilan', 'umur', 'alamat',
-        'no_telepon', 'agama', 'email', 'foto', 'semester',
+        'no_telepon', 'agama', 'email', 'sex', 'foto', 'semester',
         'prodi', 'created_at', 'updated_at'
     ];
 }

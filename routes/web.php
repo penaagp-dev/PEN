@@ -79,10 +79,14 @@ Route::middleware('auth')->group(function() {
         Route::middleware('permission:delete')->delete('/{socialmedia}', 'deleteData');
     });
 
-    Route::middleware('role:Super-Admin|Admin')->prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
-        Route::middleware('permission:getAll')->get('/', 'getAllData');
-        Route::middleware('permission:upsert important')->post('/', 'upsertData');
-        Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
-        Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
-    });
+});
+
+Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+    Route::get('/', 'getAllData');
+    Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
+    Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
+});
+
+Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+    Route::post('/', 'upsertData')->name('recruitment.post');
 });

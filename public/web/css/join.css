@@ -104,6 +104,13 @@ textarea:focus{
 textarea::placeholder{
     color: var(--outline);
 }
+.select{
+    border-radius: 5px;
+    padding: 5px;
+}
+.select:focus{
+    outline: 0px;
+}
 
 .footer-card{
     margin-top: 25px;

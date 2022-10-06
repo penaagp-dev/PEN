@@ -36,6 +36,7 @@ class CalonAnggotaController extends Controller
             'no_telepon' => $request->no_telepon, 
             'agama' => $request->agama, 
             'email' => $request->email, 
+            'sex' => $request->sex, 
             'foto' => $fileName, 
             'semester' => $request->semester,
             'prodi' => $request->prodi
