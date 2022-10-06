@@ -40,6 +40,7 @@
 
                     <!-- ===== FORM 1 START ===== -->
                     <div id="form1">
+                        @csrf
                         <div class="w-100">
                             <div class="input-group line">
                                 <input name="nama" type="text" placeholder="Nama Lengkap">
