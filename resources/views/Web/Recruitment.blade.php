@@ -228,15 +228,12 @@
                 },
                 error: (err) => {
                     let myErr = err.responseJSON
-                    $('.form-text').html('')
-                    console.log(myErr);
                     if (err.status == 422) {
                         $.each(myErr.errors.data, (i, value) => {
                             $(`#${i}-alert`).html(value)
                         })
                     } else {
                         dangerAlert()
-                        console.log(err);
                     }
                     $('#btn-send').html('Send <i class="fa-solid fa-paper-plane"></i>')
                     $('#btn-send').prop('disabled', false)
