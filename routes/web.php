@@ -54,36 +54,36 @@ Route::middleware('auth')->group(function() {
     Route::middleware('role:Super-Admin|Admin')->prefix('v1/general_information')->controller(GeneralInformationController::class)->group(function () {
         Route::middleware('permission:getAll')->get('/', 'getAllData');
         Route::middleware('permission:upsert')->post('/', 'upsertData');
-        Route::middleware('permission:getBtId')->get('/{general_information}', 'getDataById');
+        Route::middleware('permission:getById')->get('/{general_information}', 'getDataById');
         Route::middleware('permission:delete')->delete('/{general_information}', 'deleteData');
     });
 
     Route::middleware('role:Super-Admin|Admin')->prefix('v1/generation')->controller(GenerationController::class)->group(function () {
         Route::middleware('permission:getAll')->get('/', 'getAllData');
         Route::middleware('permission:upsert')->post('/', 'upsertData');
-        Route::middleware('permission:getBtId')->get('/{generation}', 'getDataById');
+        Route::middleware('permission:getById')->get('/{generation}', 'getDataById');
         Route::middleware('permission:delete')->delete('/{generation}', 'deleteData');
     });
 
     Route::middleware('role:Super-Admin|Admin')->prefix('v1/galery')->controller(GaleryController::class)->group(function () {
         Route::middleware('permission:getAll')->get('/', 'getAllData');
         Route::middleware('permission:upsert')->post('/', 'upsertData');
-        Route::middleware('permission:getBtId')->get('/{generation}', 'getDataById');
+        Route::middleware('permission:getById')->get('/{generation}', 'getDataById');
         Route::middleware('permission:delete')->delete('/{generation}', 'deleteData');
     });
 
     Route::middleware('role:Super-Admin|Admin')->prefix('v1/socialmedia')->controller(SocialMediaController::class)->group(function () {
         Route::middleware('permission:getAll')->get('/', 'getAllData');
         Route::middleware('permission:upsert')->post('/', 'upsertData');
-        Route::middleware('permission:getBtId')->get('/{socialmedia}', 'getDataById');
+        Route::middleware('permission:getById')->get('/{socialmedia}', 'getDataById');
         Route::middleware('permission:delete')->delete('/{socialmedia}', 'deleteData');
     });
 
 });
 
-Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
-    Route::get('/', 'getAllData');
-    Route::post('/', 'upsertData')->name('recruitment.post');
-    Route::get('/{calon_anggota}', 'getDataById');
-    Route::delete('/{calon_anggota}', 'deleteData');
+Route::prefix('v2/recruitment')->controller(CalonAnggotaController::class)->group(function () {
+    Route::middleware(['auth', 'permission:getAll'])->get('/', 'getAllData');
+    Route::post('/up', 'upsertData')->name('recruitment.post');
+    Route::middleware(['auth', 'permission:getById'])->get('/{calon_anggota}', 'getDataById');
+    Route::middleware(['auth', 'permission:delete important'])->delete('/{calon_anggota}', 'deleteData');
 });
