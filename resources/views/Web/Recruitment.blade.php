@@ -190,56 +190,39 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             })
-        })
-        const successAllert = () => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Kerja Bagus',
-          text: 'Kamu berhasil terdaftar!'
-            }).then((res) => {
-                if (res.isConfirmed) {
-                    window.location.href = "https://penaku.tech";
-                }
-            })
-        }
 
-        const dangerAlert = () => {
-            Swal.fire({
-            icon: 'warning',
-            title: 'Error!',
-            text: 'Server sedang bermasalah'
-            })
-        }
-        $(document).on('click', '#btn-send', function() {
-            $(this).html('Loading ... <i class="fa-solid fa-spinner"></i>')
-            $(this).prop('disabled', true)
-            let url = `{{config('app.url')}}/v2/recrutment`
-            let data = new FormData($('#form-data')[0])
+            $(document).on('click', '#btn-send', function() {
+                $(this).html('Loading ... <i class="fa-solid fa-spinner"></i>')
+                $(this).prop('disabled', true)
+                let url = `{{config('app.url')}}/v2/recrutment`
+                let data = new FormData($('#form-data')[0])
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: (res) => {
-                    successAllert()
-                },
-                error: (err) => {
-                    let myErr = err.responseJSON
-                    if (err.status == 422) {
-                        $.each(myErr.errors.data, (i, value) => {
-                            $(`#${i}-alert`).html(value)
-                        })
-                    } else {
-                        dangerAlert()
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (res) => {
+                        successAllert()
+                    },
+                    error: (err) => {
+                        let myErr = err.responseJSON
+                        if (err.status == 422) {
+                            $.each(myErr.errors.data, (i, value) => {
+                                $(`#${i}-alert`).html(value)
+                            })
+                        } else {
+                            dangerAlert()
+                        }
+                        $('#btn-send').html('Send <i class="fa-solid fa-paper-plane"></i>')
+                        $('#btn-send').prop('disabled', false)
                     }
-                    $('#btn-send').html('Send <i class="fa-solid fa-paper-plane"></i>')
-                    $('#btn-send').prop('disabled', false)
-                }
+                })
             })
         })
+        
     </script>
 </body>
 </html>
