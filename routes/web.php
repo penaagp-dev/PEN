@@ -81,12 +81,9 @@ Route::middleware('auth')->group(function() {
 
 });
 
-Route::prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
+Route::middleware('cors')->prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
     Route::get('/', 'getAllData');
+    Route::post('/', 'upsertData')->name('recruitment.post');
     Route::middleware('permission:getBtId')->get('/{calon_anggota}', 'getDataById');
     Route::middleware('permission:delete important')->delete('/{calon_anggota}', 'deleteData');
-});
-
-Route::middleware(['cors'])->prefix('v2/recrutment')->controller(CalonAnggotaController::class)->group(function () {
-    Route::post('/', 'upsertData')->name('recruitment.post');
 });
