@@ -26,7 +26,7 @@ class CalonAnggotaController extends Controller
     {
         $fileUpload = $request->file('foto');
         $fileName = str_replace(' ', '_', $request->nama) . '.' . $fileUpload->getClientOriginalExtension();
-        $filePath = public_path('storage\\recrutment\\');
+        $filePath = public_path('storage//recrutment//');
         $caId = $request->id | null;
         $newDetail = array(
             'nama' => $request->nama, 
