@@ -28,6 +28,10 @@
                     <a href="{{route('cms.social_media')}}" class="nav-link "><span class="pcoded-micon"><i
                     class="feather icon-file-text"></i></span><span class="pcoded-mtext">Social Media</span></a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('cms.pendaftar') ? 'active' : '' }}">
+                    <a href="{{route('cms.pendaftar')}}" class="nav-link "><span class="pcoded-micon"><i
+                    class="feather icon-file-text"></i></span><span class="pcoded-mtext">Pendaftar</span></a>
+                </li>
             </ul>
         </div>
     </div>

@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function() {
         return view('Pages.SocialMedia');
     })->name('cms.social_media');
 
+    Route::middleware('permission:getAll')->get('/cms/pendaftar', function () {
+        return view('Pages.CalonAnggota');
+    })->name('cms.pendaftar');
+
     Route::middleware('role:Super-Admin|Admin')->prefix('v1/general_information')->controller(GeneralInformationController::class)->group(function () {
         Route::middleware('permission:getAll')->get('/', 'getAllData');
         Route::middleware('permission:upsert')->post('/', 'upsertData');
@@ -82,8 +86,8 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::prefix('v2/recruitment')->controller(CalonAnggotaController::class)->group(function () {
-    Route::middleware(['auth', 'permission:getAll'])->get('/', 'getAllData');
     Route::post('/up', 'upsertData')->name('recruitment.post');
+    Route::middleware(['auth', 'permission:getAll'])->get('/', 'getAllData');
     Route::middleware(['auth', 'permission:getById'])->get('/{calon_anggota}', 'getDataById');
     Route::middleware(['auth', 'permission:delete important'])->delete('/{calon_anggota}', 'deleteData');
 });

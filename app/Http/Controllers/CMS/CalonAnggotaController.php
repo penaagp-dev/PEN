@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CalonAnggotaRequest;
 use App\Interfaces\CARepoInterfaces;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class CalonAnggotaController extends Controller
     public function upsertData(CalonAnggotaRequest $request)
     {
         $fileUpload = $request->file('foto');
-        $fileName = str_replace(' ', '_', $request->nama) . '.' . $fileUpload->getClientOriginalExtension();
+        $fileName = str_replace(' ', '_', $request->nama). '_' .Carbon::now()->format('dHs'). '.' . $fileUpload->getClientOriginalExtension();
         $filePath = public_path('storage//recrutment//');
         $caId = $request->id | null;
         $newDetail = array(
