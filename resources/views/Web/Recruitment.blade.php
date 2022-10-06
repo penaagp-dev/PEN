@@ -40,6 +40,7 @@
                     <div id="form1">
                         <div class="w-100">
                             <div class="input-group line">
+                                @csrf
                                 <input name="nama" type="text" placeholder="Nama Lengkap">
                                 <small id="nama-alert" class="form-text text-danger"></small>
                             </div>
