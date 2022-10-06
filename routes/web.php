@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Cms\AuthController;
+use App\Http\Controllers\CMS\AuthController;
 use App\Http\Controllers\CMS\CalonAnggotaController;
 use App\Http\Controllers\CMS\GaleryController;
 use Illuminate\Support\Facades\Route;
