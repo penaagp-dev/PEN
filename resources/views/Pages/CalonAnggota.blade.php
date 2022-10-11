@@ -30,6 +30,7 @@
                             <th>Nama</th>
                             <th>Umur</th>
                             <th>Jenis Kelamin</th>
+                            <th>Telepon</th>
                             <th style="width: 12%">Created</th>
                             <th style="width: 12%">Action</th>
                         </tr>
@@ -147,7 +148,7 @@
         $.get(url, (res) => {
           $.each(res.data, (i, val) => {
             table.row.add([
-              i+1 + '.', val.nama, val.umur, val.sex, moment(val.created_at).format("DD MMMM YYYY"),
+              i+1 + '.', val.nama, val.umur, val.sex, val.no_telepon, moment(val.created_at).format("DD MMMM YYYY"),
               `<button class="btn btn-sm btn-outline-primary rounded" id="btn-edit" data-id="${val.id}"><i class="fa-regular fa-pen-to-square"></i></button>
               <button class="btn btn-sm btn-outline-secondary rounded ml-1" id="btn-del" data-id="${val.id}"><i class="fa-regular fa-trash-can"></i></button>`
             ])
