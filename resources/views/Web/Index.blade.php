@@ -63,8 +63,8 @@
             </span>
             <h1 id="coverHeadTitle">PENA</h1>
         </div>
-        <a href="{{route('recruitment')}}">
-            <button class="btn-cover">Join Us</button>
+        <a href="#about">
+            <button class="btn-cover">About Us</button>
         </a>
     </div>
     <!-- ===== COVER END ===== -->
@@ -167,12 +167,12 @@
             <section class="join text-center" id="event">
                 <div class="my-shadow d-flex align-items-center justify-content-center">
                     <div class="text-white">
-                        <h3 class="font-60 fw-700 join-head" data-aos="fade-up" data-aos-duration="1000">Join With Us</h3>
+                        <h3 class="font-60 fw-700 join-head" data-aos="fade-up" data-aos-duration="1000">Thank you for join us</h3>
                         <p class="font-25 fw-500 join-subtitle" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-                            Are you ready to be generation 9 in PENA?
+                            See you again on next year, GEN 10 comming soon!
                         </p>
-                        <a href="{{route('recruitment')}}">
-                            <button class="button btn-blue" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">I'am Ready</button>
+                        <a href="#">
+                            <button class="button btn-blue" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Closing</button>
                         </a>
                     </div>
                 </div>
